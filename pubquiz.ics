@@ -2,9 +2,9 @@ BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
 DTSTART:20260130T183000Z
-DTEND:20260130T223000Z
+DTEND:20260130T213000Z
 SUMMARY:Pub Quiz Night!
-DESCRIPTION:Join a little pub quiz hosted by cute friends
+DESCRIPTION:Join a little pub quiz hosted by cute friends\nDoors open at 19:30\nEvent starts at 20:00
 LOCATION:ISTP, Universitätstrasse 41, 8006 Zürich
 END:VEVENT
 END:VCALENDAR
