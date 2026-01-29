@@ -1,0 +1,15 @@
+[workspace]
+authors = ["Manthan Gadhia <54841046+manthangadhia@users.noreply.github.com>"]
+channels = ["conda-forge"]
+name = "env"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = "3.11.*"
+pandas = ">=3.0.0,<4"
+numpy = ">=2.4.1,<3"
+ipython = ">=9.9.0,<10"
+ipykernel = ">=7.1.0,<8"
