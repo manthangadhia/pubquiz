@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pub Quiz Teams</title>
+    <link rel="stylesheet" href="poster.css">
+    <style>
+        .groups-container {
+            min-height: 100vh;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-title {
+            font-size: 4em;
+            font-weight: 900;
+            color: #042A2B;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .team-card {
+            background-color: white;
+            border: 6px solid #042A2B;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .team-header {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #042A2B;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .team-members {
+            list-style: none;
+        }
+
+        .team-members li {
+            font-size: 1.3em;
+            color: #000000;
+            padding: 10px 0;
+            border-bottom: 2px solid #FFC700;
+        }
+
+        .team-members li:last-child {
+            border-bottom: none;
+        }
+
+        .team-members li {
+            cursor: move;
+            transition: background-color 0.2s;
+        }
+
+        .team-members li:hover {
+            background-color: rgba(255, 199, 0, 0.2);
+        }
+
+        .team-members li.dragging {
+            opacity: 0.5;
+        }
+
+        .team-members.drag-over {
+            background-color: rgba(255, 199, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .groups-container {
+                padding: 40px 20px;
+            }
+
+            .page-title {
+                font-size: 2.5em;
+                margin-bottom: 40px;
+            }
+
+            .teams-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .team-header {
+                font-size: 2em;
+            }
+
+            .team-members li {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="groups-container">
+        <div class="page-title">Pub Quiz Teams</div>
+        
+        <div class="teams-grid">
+            <div class="team-card">
+                <div class="team-header">Team 1</div>
+                <ul class="team-members">
+                    <li>Tim Baumgärtner</li>
+                    <li>Patrick</li>
+                    <li>SmartyMarty</li>
+                    <li>Carry</li>
+                    <li>Lukas Walker</li>
+                    <li>Sofia ✨</li>
+                </ul>
+            </div>
+
+            <div class="team-card">
+                <div class="team-header">Team 2</div>
+                <ul class="team-members">
+                    <li>Mirjam Koller</li>
+                    <li>Melissa</li>
+                    <li>Elea</li>
+                    <li>Laberi 🫶🏻</li>
+                    <li>Elias</li>
+                    <li>Karolina Majchrzak</li>
+                </ul>
+            </div>
+
+            <div class="team-card">
+                <div class="team-header">Team 3</div>
+                <ul class="team-members">
+                    <li>Anouchka</li>
+                    <li>Nad</li>
+                    <li>Alex the T-Rex</li>
+                    <li>Konstantin der Grosse</li>
+                    <li>Norina</li>
+                    <li>angèle</li>
+                </ul>
+            </div>
+
+            <div class="team-card">
+                <div class="team-header">Team 4</div>
+                <ul class="team-members">
+                    <li>Karo</li>
+                    <li>Manthi/Rahel</li>
+                    <li>noe (horse(conceptual))</li>
+                    <li>Leila</li>
+                    <li>Jana</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get all team member list items
+        const teamMembers = document.querySelectorAll('.team-members li');
+        const teamLists = document.querySelectorAll('.team-members');
+
+        // Make each team member draggable
+        teamMembers.forEach(member => {
+            member.draggable = true;
+
+            member.addEventListener('dragstart', (e) => {
+                member.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            member.addEventListener('dragend', (e) => {
+                member.classList.remove('dragging');
+                // Remove drag-over class from all lists
+                teamLists.forEach(list => list.classList.remove('drag-over'));
+            });
+        });
+
+        // Set up drop zones on team lists
+        teamLists.forEach(list => {
+            list.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                list.classList.add('drag-over');
+            });
+
+            list.addEventListener('dragleave', (e) => {
+                // Only remove if we're actually leaving the list
+                if (e.target === list) {
+                    list.classList.remove('drag-over');
+                }
+            });
+
+            list.addEventListener('drop', (e) => {
+                e.preventDefault();
+                list.classList.remove('drag-over');
+                
+                const draggingElement = document.querySelector('.dragging');
+                if (draggingElement && list !== draggingElement.parentElement) {
+                    // Add the dragged element to the new team
+                    list.appendChild(draggingElement);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
